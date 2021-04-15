@@ -85,7 +85,7 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
-        "make:migration": [
+        "migration": [
             "php bin/console doctrine:migration:diff"
         ],
         "migrate": [
