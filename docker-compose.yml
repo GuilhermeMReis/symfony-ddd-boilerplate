@@ -10,6 +10,8 @@ services:
       - ./.docker/php/php-ini-overrides.ini:/etc/php/7.2/fpm/conf.d/99-overrides.ini
     ports:
       - "9000:9000"
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
 
   nginx:
     image: nginx:alpine
