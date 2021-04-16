@@ -1,3 +1,5 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+# Controllers should be within some context in `/src/*` and match the ending file name as *Controller.php
+
+controllers:
+  resource: '.'
+  type: 'controller-loader'

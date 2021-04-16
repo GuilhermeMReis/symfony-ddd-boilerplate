@@ -11,3 +11,6 @@ migrate:
 	docker-compose exec php symfony console doctrine:cache:clear-metadata
 	docker-compose exec php composer migration
 	docker-compose exec php composer migrate
+
+clear-cache:
+	docker-compose exec php bin/console cache:pool:clear cache.global_clearer
