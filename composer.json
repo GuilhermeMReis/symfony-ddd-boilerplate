@@ -1,4 +1,6 @@
 {
+    "name": "symfony/ddd",
+    "description": "Symfony DDD boilerplate",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "dev",
