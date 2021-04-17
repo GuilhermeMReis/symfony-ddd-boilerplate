@@ -27,5 +27,7 @@ class HelloWorldControllerTest extends WebTestCase
         $client->request('POST', '/hello');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        
+        var_dump($client->getResponse()->getContent());
     }
 }
