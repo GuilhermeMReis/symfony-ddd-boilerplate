@@ -10,12 +10,17 @@ jobs:
     name: Symfony 5.2 (PHP ${{ matrix.php-versions }})
     # https://hub.docker.com/_/ubuntu/
     runs-on: ubuntu-20.04
+    env:
+      DATABASE_URL: mysql://root:secret@127.0.0.1:3306/db?serverVersion=8
     services:
       # https://docs.docker.com/samples/library/mysql/
       mysql:
-        image: mysql:5.7
+        image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: secret
+          MYSQL_DATABASE: db
+          MYSQL_USER: user
+          MYSQL_PASSWORD: secret
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3

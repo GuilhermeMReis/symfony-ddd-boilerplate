@@ -14,4 +14,10 @@ class HelloWorldController extends BaseController
     {
         return $this->query(new HelloWorldQuery('world'));
     }
+
+    #[Route('/hello', name: 'hello_world_command', methods: ['POST'])]
+    public function handle(): Response
+    {
+        return $this->command(new HelloWorldCommand('world'));
+    }
 }
