@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Common\Infrastructure\CQRS\Query;
+namespace App\Common\Domain\Bus\Query;
 
 interface QueryBus
 {

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Common\Application\HelloWorld;
 
-use App\Common\Infrastructure\CQRS\Command\CommandHandler;
+use App\Common\Domain\Bus\Command\CommandHandler;
 
 class HelloWorldCommandHandler implements CommandHandler
 {

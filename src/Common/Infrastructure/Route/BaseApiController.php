@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace App\Common\Infrastructure\Route;
 
-use App\Common\Infrastructure\CQRS\Command\Command;
-use App\Common\Infrastructure\CQRS\Command\CommandBus;
-use App\Common\Infrastructure\CQRS\Query\QueryBus;
-use App\Common\Infrastructure\CQRS\Query\Query;
+use App\Common\Domain\Bus\Command\Command;
+use App\Common\Domain\Bus\Command\CommandBus;
+use App\Common\Domain\Bus\Query\QueryBus;
+use App\Common\Domain\Bus\Query\Query;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
