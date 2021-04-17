@@ -1,8 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Common\Infrastructure\CQRS\Command;
+namespace App\Common\Infrastructure\Bus\Command;
 
+use App\Common\Domain\Bus\Command\Command;
+use App\Common\Domain\Bus\Command\CommandBus;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 final class MessengerCommandBus implements CommandBus

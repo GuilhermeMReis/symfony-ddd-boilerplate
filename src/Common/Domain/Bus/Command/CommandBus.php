@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Common\Infrastructure\CQRS\Command;
+namespace App\Common\Domain\Bus\Command;
 
 interface CommandBus
 {
