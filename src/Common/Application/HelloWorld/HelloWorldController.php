@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HelloWorldController extends BaseController
 {
-    #[Route('/hello', name: 'hello_world')]
+    #[Route('/hello', name: 'hello_world', methods: ['GET'])]
     public function index(): Response
     {
         return $this->query(new HelloWorldQuery('world'));
