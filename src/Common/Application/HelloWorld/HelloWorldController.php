@@ -7,7 +7,7 @@ use App\Common\Infrastructure\Route\BaseApiController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HelloWorldApiController extends BaseApiController
+class HelloWorldController extends BaseApiController
 {
     #[Route('/hello', name: 'hello_world', methods: ['GET'])]
     public function index(): Response
