@@ -75,5 +75,4 @@ jobs:
 
       - name: Run functionnal tests
         run: |
-          cp phpunit.xml.ci phpunit.xml
           ./vendor/bin/phpunit --testsuite='functional'
