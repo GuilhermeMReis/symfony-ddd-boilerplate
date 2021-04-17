@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Common\Application\HelloWorld;
 
-use App\Common\Domain\Route\BaseController;
+use App\Common\Infrastructure\Route\BaseController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 

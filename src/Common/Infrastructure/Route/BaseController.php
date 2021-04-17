@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Common\Domain\Route;
+namespace App\Common\Infrastructure\Route;
 
 use App\Common\Infrastructure\CQRS\Command\Command;
 use App\Common\Infrastructure\CQRS\Command\CommandBus;
