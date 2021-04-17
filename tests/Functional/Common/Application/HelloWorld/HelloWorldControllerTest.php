@@ -19,4 +19,13 @@ class HelloWorldControllerTest extends WebTestCase
         $this->assertArrayHasKey('hello', $result);
         $this->assertEquals('world', $result['hello']);
     }
+
+    public function testItCanHandleHelloWorldCommand()
+    {
+        $client = static::createClient();
+
+        $client->request('POST', '/hello');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+    }
 }

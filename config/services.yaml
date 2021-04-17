@@ -21,7 +21,7 @@ services:
     # please note that last definitions always *replace* previous ones
 
     _instanceof:
-        App\Common\Infrastructure\CQRS\Query\CommandHandler:
+        App\Common\Infrastructure\CQRS\Command\CommandHandler:
             tags:
                 - { name: messenger.message_handler, bus: command.bus }
         App\Common\Infrastructure\CQRS\Query\QueryHandler:
