@@ -14,3 +14,6 @@ migrate:
 
 clear-cache:
 	docker-compose exec php bin/console cache:pool:clear cache.global_clearer
+
+functional-test:
+	docker-compose exec php symfony composer test:functional $(test)

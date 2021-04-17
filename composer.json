@@ -91,6 +91,9 @@
         ],
         "migrate": [
             "php bin/console doctrine:migrations:migrate"
+        ],
+        "test:functional": [
+            "bin/phpunit --testsuite functional --testdox"
         ]
     },
     "conflict": {
