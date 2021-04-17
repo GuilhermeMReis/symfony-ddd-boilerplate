@@ -12,6 +12,6 @@ class HelloWorldController extends BaseController
     #[Route('/hello', name: 'hello_world')]
     public function index(): Response
     {
-        return new Response('Hello world', Response::HTTP_OK);
+        return $this->query(new HelloWorldQuery('world'));
     }
 }
