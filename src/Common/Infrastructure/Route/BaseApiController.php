@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Common\Domain\Route;
+namespace App\Common\Infrastructure\Route;
 
 use App\Common\Infrastructure\CQRS\Command\Command;
 use App\Common\Infrastructure\CQRS\Command\CommandBus;
@@ -10,7 +10,7 @@ use App\Common\Infrastructure\CQRS\Query\Query;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class BaseController extends AbstractController
+class BaseApiController extends AbstractController
 {
     public function __construct(
         private QueryBus $queryBus,
