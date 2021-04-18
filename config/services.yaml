@@ -27,3 +27,6 @@ services:
         App\Common\Domain\Bus\Query\QueryHandler:
             tags:
                 - { name: messenger.message_handler, bus: query.bus }
+        App\Common\Domain\Bus\DomainEvent\DomainEventListener:
+            tags:
+                - { name: messenger.message_handler, bus: domain.event.bus }
