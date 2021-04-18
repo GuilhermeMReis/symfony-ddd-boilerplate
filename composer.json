@@ -92,10 +92,10 @@
             "@auto-scripts"
         ],
         "migration": [
-            "php bin/console doctrine:migration:diff"
+            "php bin/console doctrine:migration:diff --em=common"
         ],
         "migrate": [
-            "php bin/console doctrine:migrations:migrate"
+            "php bin/console doctrine:migrations:migrate --em=common"
         ],
         "test:functional": [
             "bin/phpunit --testsuite functional --testdox"
