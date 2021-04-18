@@ -9,10 +9,10 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 final class MessengerCommandBus implements CommandBus
 {
-    public function __construct(private MessageBusInterface $domainEventBus) {}
+    public function __construct(private MessageBusInterface $commandBus) {}
 
     public function dispatch(Command $command): void
     {
-        $this->domainEventBus->dispatch($command);
+        $this->commandBus->dispatch($command);
     }
 }
