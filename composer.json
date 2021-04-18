@@ -48,6 +48,7 @@
         "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
         "symfony/browser-kit": "^5.2",
         "symfony/css-selector": "^5.2",
         "symfony/debug-bundle": "^5.2",
@@ -99,6 +100,12 @@
         ],
         "test:functional": [
             "bin/phpunit --testsuite functional --testdox"
+        ],
+        "load:fixtures": [
+            "symfony console doctrine:database:drop --if-exists --connection=common --force",
+            "symfony console doctrine:database:create --connection=common",
+            "@migrate",
+            "symfony console doctrine:fixtures:load --no-interaction --em=common --append"
         ]
     },
     "conflict": {
