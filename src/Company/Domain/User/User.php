@@ -3,13 +3,14 @@ declare(strict_types=1);
 
 namespace App\Company\Domain\User;
 
+use App\Common\Domain\Aggregate\AggregateRoot;
 use App\Common\Domain\ValueObject\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
  */
-class User
+class User extends AggregateRoot
 {
     /**
      * @ORM\Id
