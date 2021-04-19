@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Tests\Functional\Common\Application\HelloWorld;
+namespace App\Tests\Functional\Company\Application\HelloWorld;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
