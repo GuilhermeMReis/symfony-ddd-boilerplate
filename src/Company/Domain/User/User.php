@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Common\Domain\User;
+namespace App\Company\Domain\User;
 
 use App\Common\Domain\ValueObject\Uuid;
 use Doctrine\ORM\Mapping as ORM;

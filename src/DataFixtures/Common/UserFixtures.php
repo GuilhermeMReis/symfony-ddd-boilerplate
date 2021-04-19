@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\DataFixtures\Common;
 
-use App\Common\Domain\User\User;
+use App\Company\Domain\User\User;
 use App\Common\Domain\ValueObject\Uuid;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;

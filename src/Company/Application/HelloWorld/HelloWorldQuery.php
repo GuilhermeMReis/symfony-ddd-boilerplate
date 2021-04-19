@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Common\Application\HelloWorld;
+namespace App\Company\Application\HelloWorld;
 
 use App\Common\Domain\Bus\Query\Query;
 
