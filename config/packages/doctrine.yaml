@@ -6,7 +6,7 @@ doctrine:
                 url: '%env(resolve:DATABASE_URL)%'
                 server_version: '8'
         types:
-            uuid_type: App\Common\Infrastructure\Doctrine\Types\UuidType
+            uuid_type: App\Common\Infrastructure\Doctrine\Type\UuidType
     orm:
         auto_generate_proxy_classes: true
         default_entity_manager: common
@@ -15,9 +15,9 @@ doctrine:
                 naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
                 connection: common
                 mappings:
-                    Common_User:
+                    Company_User:
                         is_bundle: false
                         type: annotation
-                        dir: '%kernel.project_dir%/src/Common/Domain/User'
-                        prefix: 'App\Common\Domain\User'
-                        alias: Common_User
+                        dir: '%kernel.project_dir%/src/Company/Domain/User'
+                        prefix: 'App\Company\Domain\User'
+                        alias: Company_User

@@ -102,10 +102,10 @@
             "bin/phpunit --testsuite functional --testdox"
         ],
         "load:fixtures": [
-            "symfony console doctrine:database:drop --if-exists --connection=common --force",
-            "symfony console doctrine:database:create --connection=common",
+            "php bin/console doctrine:database:drop --if-exists --connection=common --force",
+            "php bin/console doctrine:database:create --connection=common",
             "@migrate",
-            "symfony console doctrine:fixtures:load --no-interaction --em=common --append"
+            "php bin/console doctrine:fixtures:load --no-interaction --em=common --append"
         ]
     },
     "conflict": {
