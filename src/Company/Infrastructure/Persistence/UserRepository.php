@@ -19,4 +19,9 @@ class UserRepository extends BaseDoctrineRepository implements UserRepositoryInt
     {
         return $this->find($userId);
     }
+
+    public function save(User $user): void
+    {
+        $this->persist($user);
+    }
 }
