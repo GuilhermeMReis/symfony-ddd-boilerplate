@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Common\Infrastructure\Doctrine\Types;
+namespace App\Common\Infrastructure\Doctrine\Type;
 
 use Ramsey\Uuid\Doctrine\UuidType as RamseyUuidType;
 

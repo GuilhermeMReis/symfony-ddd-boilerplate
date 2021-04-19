@@ -6,7 +6,7 @@ doctrine:
                 url: '%env(resolve:DATABASE_URL)%'
                 server_version: '8'
         types:
-            uuid_type: App\Common\Infrastructure\Doctrine\Types\UuidType
+            uuid_type: App\Common\Infrastructure\Doctrine\Type\UuidType
     orm:
         auto_generate_proxy_classes: true
         default_entity_manager: common
