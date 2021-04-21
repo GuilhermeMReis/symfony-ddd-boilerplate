@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Common\Domain\ValueObject;
 
+use App\Common\Domain\ValueObject\Enum;
 use App\Common\Domain\ValueObject\Title;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
@@ -71,5 +72,12 @@ class TitleTest extends TestCase
         self::expectException(InvalidArgumentException::class);
 
         new Title('wrong-value');
+    }
+
+    public function testItCanCheckEquals()
+    {
+
+        self::assertTrue((new Title(Title::MR))->equals(new Title(Title::MR)));
+        self::assertFalse((new Title(Title::MR))->equals(new Title(Title::MRS)));
     }
 }

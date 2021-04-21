@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Company\Infrastructure\Persistence;
 
+use App\Common\Domain\ValueObject\Title;
 use App\Common\Domain\ValueObject\Uuid;
 use App\Company\Domain\User\User;
 use App\Company\Domain\User\UserRepositoryInterface;
@@ -31,7 +32,7 @@ class UserRepositoryTest extends KernelTestCase
     public function testItCanCreateNewUser()
     {
         $userId = new Uuid;
-        $user = new User($userId, 'name test');
+        $user = new User($userId, 'name test', $title = new Title(Title::MR));
 
         $this->userRepository->save($user);
 
@@ -39,5 +40,6 @@ class UserRepositoryTest extends KernelTestCase
 
         $this->assertInstanceOf(User::class, $user);
         $this->assertEquals($userId->getValue(), $user->getId()->getValue());
+        $this->assertTrue($title->equals($user->getTitle()));
     }
 }

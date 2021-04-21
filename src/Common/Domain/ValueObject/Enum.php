@@ -61,4 +61,9 @@ abstract class Enum
     {
         return (string) $this->value();
     }
+
+    public function equals(Enum $compareTo): bool
+    {
+        return $this->value() === $compareTo->value();
+    }
 }
