@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\DataFixtures\Company;
 
+use App\Common\Domain\ValueObject\Title;
 use App\Company\Domain\User\User;
 use App\Common\Domain\ValueObject\Uuid;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -14,7 +15,8 @@ class UserFixtures extends Fixture
     {
         $user = new User(
             new Uuid(),
-            'name'
+            'Guilherme Reis',
+            new Title(Title::MR)
         );
 
         $manager->persist($user);

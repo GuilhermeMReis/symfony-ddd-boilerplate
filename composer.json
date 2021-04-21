@@ -101,6 +101,14 @@
         "test:functional": [
             "bin/phpunit --testsuite functional --testdox"
         ],
+        "test:unit": [
+            "bin/phpunit --testsuite unit --testdox"
+        ],
+        "test": [
+            "@load:fixtures",
+            "@test:unit",
+            "@test:functional"
+        ],
         "load:fixtures": [
             "php bin/console doctrine:database:drop --if-exists --connection=common --force",
             "php bin/console doctrine:database:create --connection=common",

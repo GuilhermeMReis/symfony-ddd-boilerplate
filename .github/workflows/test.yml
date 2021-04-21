@@ -80,6 +80,9 @@ jobs:
       - name: Run fixtures
         run: |
           composer load:fixtures
+      - name: Run unit tests
+        run: |
+          composer test:unit
       - name: Run functionnal tests
         run: |
           composer test:functional
