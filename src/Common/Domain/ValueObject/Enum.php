@@ -56,4 +56,9 @@ abstract class Enum
 
         return static::$labels[$this->value];
     }
+
+    public function __toString(): string
+    {
+        return (string) $this->value();
+    }
 }

@@ -18,5 +18,8 @@ clear-cache:
 functional-test:
 	docker-compose exec php symfony composer test:functional $(test)
 
+unit-test:
+	docker-compose exec php symfony composer test:unit $(test)
+
 fixtures:
 	docker-compose exec php composer load:fixtures
