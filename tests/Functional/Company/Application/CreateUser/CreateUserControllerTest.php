@@ -8,6 +8,7 @@ use App\Common\Domain\ValueObject\Uuid;
 use App\Company\Application\User\CreateUser\CreateUserRequest;
 use App\Company\Domain\User\User;
 use App\Company\Domain\User\UserRepositoryInterface;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,11 +17,16 @@ class CreateUserControllerTest extends WebTestCase
 {
     private KernelBrowser $client;
     private ?UserRepositoryInterface $userRepository;
+    private EntityManager $em;
 
     protected function setUp(): void
     {
         parent::setUp();
         $this->client = static::createClient();
+        $this->client->disableReboot();
+
+        $this->em = $this->client->getContainer()->get('doctrine.orm.entity_manager');
+        $this->em->beginTransaction();
 
         $this->userRepository = self::$container->get(UserRepositoryInterface::class);
     }
@@ -28,6 +34,7 @@ class CreateUserControllerTest extends WebTestCase
     protected function tearDown(): void
     {
         $this->userRepository = null;
+        $this->em->rollback();
 
         parent::tearDown();
     }
