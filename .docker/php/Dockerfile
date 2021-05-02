@@ -1,6 +1,9 @@
 FROM php:fpm
 WORKDIR "/application"
 
+# Install Redis
+RUN pecl install -o -f redis && rm -rf /tmp/pear && docker-php-ext-enable redis
+
 # Install selected extensions and other stuff
 RUN apt-get update && apt-get install -y \
     git \
