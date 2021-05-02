@@ -29,11 +29,23 @@ class User extends AggregateRoot
      */
     private ?Title $title;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $fakeWelcomeEmailSent;
+
+    /**
+     * @ORM\Column(type="uuid_type")
+     */
+    private ?Uuid $fakeEmailValidationId;
+
     public function __construct(Uuid $id, string $name, ?Title $title = null)
     {
         $this->id = $id;
         $this->name = $name;
         $this->title = $title;
+        $this->fakeWelcomeEmailSent = false;
+        $this->fakeEmailValidationId = null;
     }
 
     public function getId(): Uuid
@@ -49,5 +61,21 @@ class User extends AggregateRoot
     public function getTitle(): ?Title
     {
         return $this->title;
+    }
+
+    public function isFakeWelcomeEmailSent(): bool
+    {
+        return $this->fakeWelcomeEmailSent;
+    }
+
+    public function getFakeEmailValidationId(): ?Uuid
+    {
+        return $this->fakeEmailValidationId;
+    }
+
+    public function markWelcomeEmailAsSent(Uuid $emailValidationId): void
+    {
+        $this->fakeWelcomeEmailSent = true;
+        $this->fakeEmailValidationId = $emailValidationId;
     }
 }
