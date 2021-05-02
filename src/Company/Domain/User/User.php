@@ -46,6 +46,8 @@ class User extends AggregateRoot
         $this->title = $title;
         $this->fakeWelcomeEmailSent = false;
         $this->fakeEmailValidationId = null;
+
+        $this->write(new UserCreated($this));
     }
 
     public function getId(): Uuid
