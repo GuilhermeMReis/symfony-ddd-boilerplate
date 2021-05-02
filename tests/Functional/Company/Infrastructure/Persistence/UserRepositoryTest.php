@@ -8,16 +8,21 @@ use App\Common\Domain\ValueObject\Uuid;
 use App\Company\Domain\User\User;
 use App\Company\Domain\User\UserRepositoryInterface;
 use App\Company\Infrastructure\Persistence\UserRepository;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class UserRepositoryTest extends KernelTestCase
 {
     private ?UserRepository $userRepository;
+    private EntityManager $em;
 
     protected function setUp(): void
     {
         parent::setUp();
         $this->bootKernel();
+
+        $this->em = self::$container->get('doctrine.orm.entity_manager');
+        $this->em->beginTransaction();
 
         $this->userRepository = self::$container->get(UserRepositoryInterface::class);
     }
@@ -25,6 +30,7 @@ class UserRepositoryTest extends KernelTestCase
     protected function tearDown(): void
     {
         $this->userRepository = null;
+        $this->em->rollback();
 
         parent::tearDown();
     }
