@@ -35,7 +35,7 @@ class User extends AggregateRoot
     private bool $fakeWelcomeEmailSent;
 
     /**
-     * @ORM\Column(type="uuid_type")
+     * @ORM\Column(type="uuid_type", nullable=true)
      */
     private ?Uuid $fakeEmailValidationId;
 
