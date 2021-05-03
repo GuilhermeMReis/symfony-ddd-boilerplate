@@ -17,7 +17,7 @@ class UserRepository extends BaseDoctrineRepository implements UserRepositoryInt
 
     public function findById(Uuid $userId): ?User
     {
-        return $this->find($userId);
+        return $this->find($userId->getValue());
     }
 
     public function save(User $user): void

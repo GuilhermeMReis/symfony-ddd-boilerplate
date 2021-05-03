@@ -79,5 +79,7 @@ class User extends AggregateRoot
     {
         $this->fakeWelcomeEmailSent = true;
         $this->fakeEmailValidationId = $emailValidationId;
+
+        $this->publish(new UserWelcomeEmailSent($this));
     }
 }

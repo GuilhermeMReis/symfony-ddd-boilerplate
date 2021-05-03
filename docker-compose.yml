@@ -39,3 +39,25 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     ports:
       - "3306:3306"
+
+  redis:
+    image: redis:alpine
+    container_name: symfony-ddd-redis
+    ports:
+      - 6379:6379
+
+  worker:
+    build: .docker/php
+    container_name: symfony-ddd-worker
+    entrypoint: [ "bash" ]
+    command: [ "-c", "php bin/console messenger:consume async -vv" ]
+    working_dir: /application
+    volumes:
+      - .:/application
+      - ./.docker/php/php-ini-overrides.ini:/etc/php/7.2/fpm/conf.d/99-overrides.ini
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - MESSENGER_TRANSPORT_DSN=${MESSENGER_TRANSPORT_DSN}
+    depends_on:
+      - redis
+      - mysql

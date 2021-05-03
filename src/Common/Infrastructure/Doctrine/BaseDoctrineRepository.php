@@ -4,15 +4,21 @@ declare(strict_types=1);
 namespace App\Common\Infrastructure\Doctrine;
 
 use App\Common\Domain\Aggregate\AggregateRoot;
+use App\Common\Domain\Bus\DomainEvent\DomainEvent;
 use App\Common\Domain\Bus\DomainEvent\DomainEventBus;
+use App\Common\Domain\Bus\IntegrationEvent\IntegrationEvent;
+use App\Common\Domain\Bus\IntegrationEvent\IntegrationEventBus;
 use App\Common\Infrastructure\Doctrine\Error\BaseDoctrineRepositoryException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 abstract class BaseDoctrineRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry, private DomainEventBus $domainEventBus)
-    {
+    public function __construct(
+        ManagerRegistry $registry,
+        private DomainEventBus $domainEventBus,
+        private IntegrationEventBus $integrationEventBus
+    ) {
         if (false === is_subclass_of($this->getAggregateRootClass(), AggregateRoot::class, true)) {
             throw new BaseDoctrineRepositoryException(sprintf('class specified does not extends AggregateRoot: %s in repository: %s', $this->getAggregateRootClass(), static::class));
         }
@@ -22,26 +28,26 @@ abstract class BaseDoctrineRepository extends ServiceEntityRepository
 
     abstract protected function getAggregateRootClass(): string;
 
-    protected function persist(AggregateRoot $entity): void
+    protected function persist(AggregateRoot $aggregateRoot): void
     {
-        $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->persist($aggregateRoot);
 
-        foreach($entity->pullDomainEvents() as $domainEvent){
-            $this->domainEventBus->dispatch($domainEvent);
-        }
+        array_map(fn(DomainEvent $event) => $this->domainEventBus->dispatch($event), $aggregateRoot->pullDomainEvents());
 
         $this->getEntityManager()->flush();
+
+        array_map(fn(IntegrationEvent $event) => $this->integrationEventBus->publish($event), $aggregateRoot->pullIntegrationEvents());
     }
 
-    protected function remove(AggregateRoot $entity): void
+    protected function remove(AggregateRoot $aggregateRoot): void
     {
-        $this->getEntityManager()->remove($entity);
+        $this->getEntityManager()->remove($aggregateRoot);
 
-        foreach ($entity->pullDomainEvents() as $domainEvent){
-            $this->domainEventBus->dispatch($domainEvent);
-        }
+        array_map(fn(DomainEvent $event) => $this->domainEventBus->dispatch($event), $aggregateRoot->pullDomainEvents());
 
         $this->getEntityManager()->flush();
+
+        array_map(fn(IntegrationEvent $event) => $this->integrationEventBus->publish($event), $aggregateRoot->pullIntegrationEvents());
     }
 
     public function find($id, $lockMode = null, $lockVersion = null): ?AggregateRoot

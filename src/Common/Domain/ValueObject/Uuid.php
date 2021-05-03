@@ -32,4 +32,9 @@ class Uuid
     {
         return $this->value;
     }
+
+    public static function isValid(string $value): bool
+    {
+        return RamseyUuid::isValid($value);
+    }
 }
