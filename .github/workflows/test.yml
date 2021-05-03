@@ -33,9 +33,9 @@ jobs:
       # https://github.com/actions/checkout (official)
       - name: Checkout
         uses: actions/checkout@v2
-        
+
       - name: Copy env
-        run: copy .env.ci .env
+        run: cp .env.ci .env
 
       # https://github.com/shivammathur/setup-php (community)
       - name: Setup PHP, extensions and composer with shivammathur/setup-php
