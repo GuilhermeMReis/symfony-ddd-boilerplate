@@ -7,6 +7,7 @@ use App\Common\Domain\ValueObject\Title;
 use App\Common\Domain\ValueObject\Uuid;
 use App\Company\Domain\User\User;
 use App\Company\Domain\User\UserRepositoryInterface;
+use App\Company\Domain\User\UserWelcomeEmailSent;
 use App\Company\Infrastructure\Persistence\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -49,5 +50,25 @@ class SendWelcomeEmailOnUserCreatedTest extends KernelTestCase
         $this->assertTrue($title->equals($user->getTitle()));
         $this->assertTrue($user->isFakeWelcomeEmailSent());
         $this->assertNotNull($user->getFakeEmailValidationId());
+    }
+
+    public function testItCanFireOffUserWelcomeEmailSentIntegrationEvent()
+    {
+        $userId = new Uuid;
+        $user = new User($userId, 'name test', new Title(Title::MR));
+
+        $this->userRepository->save($user);
+
+        $user = $this->userRepository->findById($userId);
+
+        $this->assertInstanceOf(User::class, $user);
+
+        $transport = self::$container->get('messenger.transport.async');
+
+        /** @var UserWelcomeEmailSent $integrationEvent */
+        $integrationEvent = $transport->get()[0]->getMessage();
+
+        $this->assertInstanceOf(UserWelcomeEmailSent::class, $integrationEvent);
+        $this->assertEquals($userId->getValue(), $integrationEvent->userId);
     }
 }
