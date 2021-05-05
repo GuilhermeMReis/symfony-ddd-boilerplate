@@ -17,6 +17,16 @@ Ps. for Windows users, take a look on the `./Makefile` for the equivalent `make`
 make up
 ```
 
+## Create JWT keys
+```shell
+docker-compose exec php php bin/console lexik:jwt:generate-keypair
+```
+
+## Run fixtures
+```shell
+make fixtures
+```
+
 ## Running tests
 ```shell
 make test

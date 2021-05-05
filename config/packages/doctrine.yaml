@@ -21,6 +21,12 @@ doctrine:
                         dir: '%kernel.project_dir%/src/Common/Domain/ValueObject'
                         prefix: 'App\Common\Domain\ValueObject'
                         alias: Common_ValueObject
+                    Common_Security:
+                        is_bundle: false
+                        type: annotation
+                        dir: '%kernel.project_dir%/src/Common/Infrastructure/Security'
+                        prefix: 'App\Common\Infrastructure\Security'
+                        alias: Common_Security
                     Company_User:
                         is_bundle: false
                         type: annotation
