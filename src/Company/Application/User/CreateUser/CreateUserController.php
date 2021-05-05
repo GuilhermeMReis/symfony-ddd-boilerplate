@@ -6,12 +6,16 @@ namespace App\Company\Application\User\CreateUser;
 use App\Common\Domain\ValueObject\Title;
 use App\Common\Domain\ValueObject\Uuid;
 use App\Common\Infrastructure\Route\BaseApiController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CreateUserController extends BaseApiController
 {
-    #[Route('/user', name: 'create_user', methods: ['POST'])]
+    /**
+     * @Route("/api/user", name="create_user", methods={"POST"})
+     * @IsGranted("ROLE_USER")
+     */
     public function handleRequest(CreateUserRequest $userRequest): Response
     {
         if (false === $userRequest->validate()->isValid) return $this->json($userRequest->validate()->violations, Response::HTTP_BAD_REQUEST);

@@ -8,12 +8,12 @@ use App\Common\Domain\ValueObject\Uuid;
 use App\Company\Application\User\CreateUser\CreateUserRequest;
 use App\Company\Domain\User\User;
 use App\Company\Domain\User\UserRepositoryInterface;
+use App\Tests\BaseWebTestCase;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-class CreateUserControllerTest extends WebTestCase
+class CreateUserControllerTest extends BaseWebTestCase
 {
     private KernelBrowser $client;
     private ?UserRepositoryInterface $userRepository;
@@ -22,7 +22,7 @@ class CreateUserControllerTest extends WebTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->client = static::createClient();
+        $this->client = $this->createAuthenticatedClient();
         $this->client->disableReboot();
 
         $this->em = $this->client->getContainer()->get('doctrine.orm.entity_manager');
@@ -41,7 +41,7 @@ class CreateUserControllerTest extends WebTestCase
 
     public function testItCanCreateAUser()
     {
-        $this->client->request('POST', '/user', [CreateUserRequest::NAME => 'testing', CreateUserRequest::TITLE => Title::MR]);
+        $this->client->request('POST', '/api/user', [CreateUserRequest::NAME => 'testing', CreateUserRequest::TITLE => Title::MR]);
 
         $result = json_decode($this->client->getResponse()->getContent(), true);
 
@@ -55,7 +55,7 @@ class CreateUserControllerTest extends WebTestCase
 
     public function testItCanShowNameViolation()
     {
-        $this->client->request('POST', '/user', [CreateUserRequest::TITLE => Title::MR]);
+        $this->client->request('POST', '/api/user', [CreateUserRequest::TITLE => Title::MR]);
 
         $result = json_decode($this->client->getResponse()->getContent(), true);
 
@@ -65,7 +65,7 @@ class CreateUserControllerTest extends WebTestCase
 
     public function testItCanShowTitleViolation()
     {
-        $this->client->request('POST', '/user', [CreateUserRequest::NAME => 'test']);
+        $this->client->request('POST', '/api/user', [CreateUserRequest::NAME => 'test']);
 
         $result = json_decode($this->client->getResponse()->getContent(), true);
 
@@ -75,7 +75,7 @@ class CreateUserControllerTest extends WebTestCase
 
     public function testItCanShowNewFieldViolation()
     {
-        $this->client->request('POST', '/user', [CreateUserRequest::NAME => 'testing', CreateUserRequest::TITLE => Title::MR, 'newField' => 'violation']);
+        $this->client->request('POST', '/api/user', [CreateUserRequest::NAME => 'testing', CreateUserRequest::TITLE => Title::MR, 'newField' => 'violation']);
 
         $result = json_decode($this->client->getResponse()->getContent(), true);
 

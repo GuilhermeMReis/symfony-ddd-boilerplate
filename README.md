@@ -32,9 +32,22 @@ make fixtures
 make test
 ```
 
+# Accessing protected `/api/*`
+
+## Fetch JWT token
+```shell
+curl --location --request POST 'http://localhost:8282/api/login_check' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "username":"admin@test.com",
+    "password":"secret"
+}'
+```
+
 ## Hello world
 ```shell
-http://localhost:8282/hello
+curl --location --request GET 'http://localhost:8282/api/hello' \
+--header 'Authorization: Bearer jwt_token'
 ```
 
 ## Context example: `src/Company`
