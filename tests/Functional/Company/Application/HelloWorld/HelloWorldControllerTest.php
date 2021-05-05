@@ -3,29 +3,34 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Company\Application\HelloWorld;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use App\Tests\BaseWebTestCase;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
-class HelloWorldControllerTest extends WebTestCase
+class HelloWorldControllerTest extends BaseWebTestCase
 {
+    private KernelBrowser $client;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->client = $this->createAuthenticatedClient();
+    }
+
     public function testItCanFetchHelloWorldResult()
     {
-        $client = static::createClient();
+        $this->client->request('GET', '/api/hello');
 
-        $client->request('GET', '/hello');
+        $result = json_decode($this->client->getResponse()->getContent(), true);
 
-        $result = json_decode($client->getResponse()->getContent(), true);
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertArrayHasKey('hello', $result);
         $this->assertEquals('world', $result['hello']);
     }
 
     public function testItCanHandleHelloWorldCommand()
     {
-        $client = static::createClient();
+        $this->client->request('POST', '/api/hello');
 
-        $client->request('POST', '/hello');
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode(), $client->getResponse()->getContent());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode(), $this->client->getResponse()->getContent());
     }
 }
