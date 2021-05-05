@@ -8,6 +8,7 @@ use App\Common\Domain\ValueObject\Uuid;
 use App\Company\Application\User\CreateUser\CreateUserRequest;
 use App\Company\Domain\User\User;
 use App\Company\Domain\User\UserRepositoryInterface;
+use App\DataFixtures\Common\UserSecurityFixtures;
 use App\Tests\BaseWebTestCase;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -81,5 +82,14 @@ class CreateUserControllerTest extends BaseWebTestCase
 
         self::assertEquals(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
         self::assertArrayHasKey('newField', $result);
+    }
+
+    public function testItFailsOnNonAdminUser()
+    {
+        $client = $this->createAuthenticatedClient(UserSecurityFixtures::NON_ADMIN_USER_EMAIL);
+
+        $client->request('POST', '/api/user', [CreateUserRequest::NAME => 'testing', CreateUserRequest::TITLE => Title::MR, 'newField' => 'violation']);
+
+        self::assertEquals(Response::HTTP_FORBIDDEN, $client->getResponse()->getStatusCode());
     }
 }

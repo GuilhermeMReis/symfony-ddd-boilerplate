@@ -14,7 +14,7 @@ class CreateUserController extends BaseApiController
 {
     /**
      * @Route("/api/user", name="create_user", methods={"POST"})
-     * @IsGranted("ROLE_USER")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function handleRequest(CreateUserRequest $userRequest): Response
     {
